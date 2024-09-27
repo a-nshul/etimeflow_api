@@ -11,7 +11,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: 'https://your-api-url.vercel.app',
+                url: 'https://etimeflow_api.vercel.app',
             },
         ],
     },
