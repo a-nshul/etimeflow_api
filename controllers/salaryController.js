@@ -70,17 +70,24 @@ const getSalarybyId = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
-const getSalary = async(req, res) => {
+const getSalary = async (req, res) => {
   try {
-    const fetchSalary=await Salary.find();
-    if(!fetchSalary){
-      return res.status(404).json({ message: "Salary not found" });
+    const userId = req.user._id; // Get the logged-in user's ID from the request
+
+    // Find all salary records for the logged-in user
+    const salaries = await Salary.find({ userId }).populate('userId'); // Populate userId for user details
+
+    if (salaries.length === 0) {
+      return res.status(404).json({ message: 'No salary records found for this user' });
     }
-    res.status(200).json({fetchSalary,message:"Salary fetched successfully"});
+
+    res.status(200).json({ salaries, message: "Salary records fetched successfully" });
   } catch (error) {
-    res.status(500).json({message:error.message});
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
   }
 };
+
 module.exports = {
   uploadSalary,
   getSalarybyId,getSalary
