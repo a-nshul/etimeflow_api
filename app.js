@@ -15,6 +15,7 @@ connectDB();
 
 // Initialize Express app
 const app = express();
+//swagger
 swaggerSetup(app);
 // Initialize cors middleware
 app.use(cors()); // This must be after app is initialized
