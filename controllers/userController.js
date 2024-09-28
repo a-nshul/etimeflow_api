@@ -2,44 +2,6 @@ const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const generateToken = require("../config/generateToken");
 
-
-// const registerUser = asyncHandler(async (req, res) => {
-//   try {
-//     const { name, email, password, phoneNumber, role } = req.body;
-    
-//     // Validate required fields
-//     if (!name || !email || !password || !phoneNumber) {
-//       return res.status(400).json({ message: "Please provide all required fields" });
-//     }
-
-//     // Check if user already exists
-//     const existingUser = await User.findOne({ email });
-//     if (existingUser) {
-//       return res.status(400).json({ message: "User already exists" });
-//     }
-
-//     // Ensure role is one of the allowed roles or default to 'employee'
-//     const userRole = role && ['employee', 'HR', 'manager'].includes(role) ? role : 'employee';
-
-//     // Create user
-//     const user = await User.create({
-//       name,
-//       email,
-//       password,
-//       phoneNumber,
-//       role: userRole
-//     });
-
-//     // Send success response with token
-//     res.status(201).json({
-//       user,
-//       token: generateToken(user._id), // Assuming you have a token generation function
-//       message: "User created successfully"
-//     });
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// });
 const registerUser = asyncHandler(async (req, res) => {
   try {
     const { name, email, password, phoneNumber, role, managerId } = req.body;

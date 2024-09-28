@@ -1,26 +1,138 @@
 const express = require('express');
-const router = express.Router();
 const {
   createHoliday,
   getHolidays,
   updateHoliday,
-  deleteHoliday,getHolidayById,
+  deleteHoliday,
+  getHolidayById,
 } = require('../controllers/listHolidayController');
-const { isHR } = require('../middleware/authMiddleware'); // Middleware to check if user is HR
-const { protect } = require('../middleware/authMiddleware'); // Middleware for authentication
+const { isHR, protect } = require('../middleware/authMiddleware');
 
-// Get all holidays (accessible to all users)
+const router = express.Router();
+
+/**
+ * @swagger
+ * /api/holidays:
+ *   get:
+ *     summary: Get all holidays
+ *     tags: [Holidays]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of holidays retrieved successfully
+ */
 router.get('/', protect, getHolidays);
 
-// Create a new holiday (only HR can create)
+/**
+ * @swagger
+ * /api/holidays:
+ *   post:
+ *     summary: Create a new holiday (only HR can create)
+ *     tags: [Holidays]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               occasion:
+ *                 type: string
+ *               date:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Holiday created successfully
+ *       401:
+ *         description: Not authorized
+ */
 router.post('/', protect, isHR, createHoliday);
 
-// Update a holiday (only HR can update)
+/**
+ * @swagger
+ * /api/holidays/{id}:
+ *   put:
+ *     summary: Update a holiday (only HR can update)
+ *     tags: [Holidays]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the holiday to update
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               occasion:
+ *                 type: string
+ *               date:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Holiday updated successfully
+ *       401:
+ *         description: Not authorized
+ *       404:
+ *         description: Holiday not found
+ */
 router.put('/:id', protect, isHR, updateHoliday);
 
-// Delete a holiday (only HR can delete)
+/**
+ * @swagger
+ * /api/holidays/{id}:
+ *   delete:
+ *     summary: Delete a holiday (only HR can delete)
+ *     tags: [Holidays]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the holiday to delete
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Holiday deleted successfully
+ *       401:
+ *         description: Not authorized
+ *       404:
+ *         description: Holiday not found
+ */
 router.delete('/:id', protect, isHR, deleteHoliday);
 
-//Get Holiday data by id
+/**
+ * @swagger
+ * /api/holidays/{id}:
+ *   get:
+ *     summary: Get holiday data by ID
+ *     tags: [Holidays]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the holiday to retrieve
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Holiday retrieved successfully
+ *       404:
+ *         description: Holiday not found
+ */
 router.get('/:id', protect, getHolidayById);
+
 module.exports = router;
