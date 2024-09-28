@@ -54,12 +54,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: 'https://etimeflow-api-uinf.vercel.app', // Vercel URL
-            },
-        ],
-        security: [
-            {
-                bearerAuth: [], // Enable Bearer token authentication
+                url: 'https://etimeflow-api-uinf.vercel.app', // Your API's URL
             },
         ],
         components: {
@@ -77,15 +72,11 @@ const swaggerOptions = {
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
-// Function to setup Swagger
+// Function to set up Swagger
 const swaggerSetup = (app) => {
-    if (app) {
-        app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-        console.log("Swagger docs are served at /api-docs");
-    } else {
-        console.error('App instance not provided to Swagger setup.');
-    }
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+    console.log('Swagger docs are served at /api-docs');
 };
 
-// Export the function
-module.exports = swaggerSetup;
+// Export the setup function
+module.exports = { swaggerSetup };
