@@ -11,7 +11,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: 'http://localhost:3001', // Your Vercel URL
+                url: 'etimeflow-api-uinf.vercel.app', // Your Vercel URL
             },
         ],
         security: [
