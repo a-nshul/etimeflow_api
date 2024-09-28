@@ -1,7 +1,6 @@
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
-// Swagger configuration options
 const swaggerOptions = {
     swaggerDefinition: {
         openapi: '3.0.0',
@@ -12,7 +11,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: 'https://etimeflow-api-nknw.vercel.app/', // Use localhost for local testing
+                url: 'http://localhost:3001', // Your Vercel URL
             },
         ],
         security: [
@@ -25,7 +24,7 @@ const swaggerOptions = {
                 bearerAuth: {
                     type: 'http',
                     scheme: 'bearer',
-                    bearerFormat: 'JWT' // Specify the format of the token (optional)
+                    bearerFormat: 'JWT'
                 }
             }
         }
