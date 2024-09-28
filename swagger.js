@@ -1,6 +1,3 @@
-const swaggerJsDoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
-
 const swaggerOptions = {
     swaggerDefinition: {
         openapi: '3.0.0',
@@ -11,7 +8,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: 'https://etimeflow-api-uinf.vercel.app', // Your Vercel URL
+                url: 'https://etimeflow-api-uinf.vercel.app', // Vercel URL
             },
         ],
         security: [
@@ -30,10 +27,4 @@ const swaggerOptions = {
         }
     },
     apis: ['./routes/*.js'], // Path to your API route files
-};
-
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
-
-module.exports = function(app) {
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 };

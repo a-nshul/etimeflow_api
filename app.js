@@ -14,7 +14,6 @@ const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 dotenv.config();
 connectDB();
 
-// Initialize Express app
 const app = express();
 
 // Middleware
@@ -23,7 +22,7 @@ app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Swagger setup
-swaggerSetup(app); // Must be initialized before route definitions
+swaggerSetup(app); // Make sure this is called before your routes
 
 // API routes
 app.use("/api/user", userRoutes);
