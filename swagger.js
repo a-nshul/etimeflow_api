@@ -12,7 +12,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: 'http://localhost:3001', // Use localhost for local testing
+                url: 'https://etimeflow-api-nknw.vercel.app/', // Use localhost for local testing
             },
         ],
         security: [
