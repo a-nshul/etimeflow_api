@@ -77,18 +77,15 @@ const swaggerOptions = {
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
-// Define the swaggerSetup function to integrate Swagger UI with the app
-function swaggerSetup(app) {
-    if (!app) {
-        console.error('App instance is not provided');
-        return;
+// Function to setup Swagger
+const swaggerSetup = (app) => {
+    if (app) {
+        app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+        console.log("Swagger docs are served at /api-docs");
+    } else {
+        console.error('App instance not provided to Swagger setup.');
     }
+};
 
-    // Use Swagger UI at the /api-docs endpoint
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-    console.log("Swagger docs are served at /api-docs");
-}
-
-// Export the swaggerSetup function to be used in app.js
-console.log('Swagger setup module loaded.');  // Debugging log
+// Export the function
 module.exports = swaggerSetup;
