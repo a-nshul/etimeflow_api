@@ -20,7 +20,7 @@ const app = express();
 // app.use(cors());
 app.use(cors(
   {
-    origin: ["http://localhost:3000", "https://etimeflow-api-uinf.vercel.app"], // Add your frontend URL here
+    origin: ["http://localhost:3000", "https://etimeflow-api-uinf.vercel.app","https://etimeflow-project-y194.vercel.app/"], // Add your frontend URL here
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
     exposedHeaders: ["X-Auth-Token"],
